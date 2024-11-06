@@ -2,7 +2,7 @@ import logging
 import uuid
 from collections.abc import Generator, Mapping, Sequence
 from concurrent.futures import Future, wait
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from queue import Empty, Queue
 from typing import TYPE_CHECKING, Any, Optional, cast
 
@@ -135,7 +135,7 @@ class IterationNode(BaseNode[IterationNodeData]):
             thread_pool_id=self.thread_pool_id,
         )
 
-        start_at = datetime.now(timezone.utc).replace(tzinfo=None)
+        start_at = datetime.now(UTC).replace(tzinfo=None)
 
         yield IterationRunStartedEvent(
             iteration_id=self.id,
