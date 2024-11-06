@@ -2,9 +2,6 @@
 
 ## Usage
 
-> [!IMPORTANT]
-> In the v0.6.12 release, we deprecated `pip` as the package management tool for Dify API Backend service and replaced it with `poetry`.
-
 1. Start the docker-compose stack
 
    The backend require some middleware, including PostgreSQL, Redis, and Weaviate, which can be started together using `docker-compose`.
@@ -37,7 +34,7 @@
 5. Install dependencies
 
    ```bash
-   poetry env use 3.10
+   poetry env use 3.11
    poetry install
    ```
 
