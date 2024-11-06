@@ -1,5 +1,5 @@
 from abc import ABC
-from enum import Enum
+from enum import Enum, StrEnum
 from typing import Optional
 
 from pydantic import BaseModel, Field, field_validator
@@ -93,7 +93,7 @@ class ImagePromptMessageContent(PromptMessageContent):
     Model class for image prompt message content.
     """
 
-    class DETAIL(str, Enum):
+    class DETAIL(StrEnum):
         LOW = "low"
         HIGH = "high"
 
