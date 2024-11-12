@@ -2,9 +2,6 @@
 
 ## Usage
 
-> [!IMPORTANT]
-> In the v0.6.12 release, we deprecated `pip` as the package management tool for Dify API Backend service and replaced it with `poetry`.
-
 1. Start the docker-compose stack
 
    The backend require some middleware, including PostgreSQL, Redis, and Weaviate, which can be started together using `docker-compose`.
@@ -30,26 +27,24 @@
    SECRET_KEY=${secret_key}" .env
    ```
 
-4. Create environment.
+4. Prepare Python environment
 
-   Dify API service uses [Poetry](https://python-poetry.org/docs/) to manage dependencies. You can execute `poetry shell` to activate the environment.
+   Dify API services requires Python 3.11 or 3.12, and the [Poetry](https://python-poetry.org/docs/) for dependency management.
+    - To install Poetry, please refer to
+      the [Poetry's installation guide](https://python-poetry.org/docs/#installation). The simplest way is to run the `pip install poetry` command to install Poetry on pip.
+    - Run `poetry env use 3.12` to switch to the Python version for Poetry, please refer the usage of `poetry env use`
+      command in [Poetry docs](https://python-poetry.org/docs/managing-environments/#switching-between-environments).
+    - Run `poetry shell` to activate the shell environment with Poetry support.
 
 5. Install dependencies
 
    ```bash
-   poetry env use 3.10
+   cd api
+   poetry env use 3.12
    poetry install
    ```
 
-   In case of contributors missing to update dependencies for `pyproject.toml`, you can perform the following shell instead.
-
-   ```bash
-   poetry shell                                               # activate current environment
-   poetry add $(cat requirements.txt)           # install dependencies of production and update pyproject.toml
-   poetry add $(cat requirements-dev.txt) --group dev    # install dependencies of development and update pyproject.toml
-   ```
-
-6. Run migrate
+6. Run db migration
 
    Before the first launch, migrate the database to the latest version.
 
@@ -57,15 +52,18 @@
    poetry run python -m flask db upgrade
    ```
 
-7. Start backend
+7. Start api service
 
    ```bash
-   poetry run python -m flask run --host 0.0.0.0 --port=5001 --debug
+   poetry run python -m flask run --host 0.0.0.0 --port=5001
    ```
 
 8. Start Dify [web](../web) service.
+
 9. Setup your application by visiting `http://localhost:3000`...
-10. If you need to handle and debug the async tasks (e.g. dataset importing and documents indexing), please start the worker service.
+
+10. Start the worker service, if you need to handle and debug the async tasks (e.g. dataset importing and documents
+    indexing), please start the worker service.
 
    ```bash
    poetry run python -m celery -A app.celery worker -P gevent -c 1 --loglevel INFO -Q dataset,generation,mail,ops_trace,app_deletion
