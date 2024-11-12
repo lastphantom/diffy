@@ -55,7 +55,7 @@
 7. Start api service
 
    ```bash
-   poetry run python -m flask run --host 0.0.0.0 --port=5001 --debug
+   poetry run python -m flask run --host 0.0.0.0 --port=5001
    ```
 
 8. Start Dify [web](../web) service.
