@@ -29,8 +29,7 @@
 
 4. Prepare Python environment
 
-   Dify API services requires Python 3.11 or 3.12, and the [Poetry](https://python-poetry.org/docs/) for dependency
-   management.
+   Dify API services requires Python 3.11 or 3.12, and the [Poetry](https://python-poetry.org/docs/) for dependency management.
     - To install Poetry, please refer to
       the [Poetry's installation guide](https://python-poetry.org/docs/#installation). The simplest way is to run the `pip install poetry` command to install Poetry on pip.
     - Run `poetry env use 3.12` to switch to the Python version for Poetry, please refer the usage of `poetry env use`
