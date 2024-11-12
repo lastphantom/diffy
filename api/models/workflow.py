@@ -154,26 +154,6 @@ class Workflow(db.Model):
 
     @property
     def features(self) -> str:
-        """
-        Convert old features structure to new features structure.
-        """
-        if not self._features:
-            return self._features
-
-        features = json.loads(self._features)
-        if features.get("file_upload", {}).get("image", {}).get("enabled", False):
-            image_enabled = True
-            image_number_limits = int(features["file_upload"]["image"].get("number_limits", 1))
-            image_transfer_methods = features["file_upload"]["image"].get(
-                "transfer_methods", ["remote_url", "local_file"]
-            )
-            features["file_upload"]["enabled"] = image_enabled
-            features["file_upload"]["number_limits"] = image_number_limits
-            features["file_upload"]["allowed_upload_methods"] = image_transfer_methods
-            features["file_upload"]["allowed_file_types"] = ["image"]
-            features["file_upload"]["allowed_extensions"] = []
-            del features["file_upload"]["image"]
-            self._features = json.dumps(features)
         return self._features
 
     @features.setter
